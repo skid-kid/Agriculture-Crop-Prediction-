@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import farmer from './assets/farmer.png'
 import farmer2 from './assets/farmer2.png'
 import { Form } from './components/form1'
