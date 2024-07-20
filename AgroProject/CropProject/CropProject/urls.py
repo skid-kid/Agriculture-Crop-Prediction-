@@ -14,9 +14,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+from django.contrib import admin 
+from django.urls import path, include 
+from django.urls import re_path
+from rest_framework.routers import DefaultRouter
+from CropApp.views import *
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
+router = DefaultRouter()
+router.register(r'crops', CropModel1ViewSet)
+router.register(r'crops', CropModel2ViewSet)
+  
+urlpatterns = [ 
+    path('admin/', admin.site.urls), 
+    path('CropModel1/', CropModel1ViewSet.as_view({'get': 'list', 'post': 'create'}), name="CropModel1"),
+    path('CropModel2/', CropModel2ViewSet.as_view({'get': 'list', 'post': 'create'}), name="CropModel2"),
+    path('', include(router.urls)),
 ]
