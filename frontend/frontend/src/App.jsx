@@ -7,6 +7,7 @@ import { Form } from './components/form1'
 const text="{AI}"
 const text2="{Agriculture-Department!}"
 const Soil="{SOIL-FERTILITY}"
+import AxiosInstance from './Axios'
 
 function App() {  
 

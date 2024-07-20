@@ -7,9 +7,9 @@ class React(models.Model):
 class CropModel1(models.Model):
     Crop_type=models.CharField(max_length=30)
     Crop_name=models.CharField(max_length=30)
-    N=models.IntegerField(max_length=5)
-    P=models.IntegerField(max_length=5)
-    K=models.IntegerField(max_length=5)
+    N=models.IntegerField()
+    P=models.IntegerField()
+    K=models.IntegerField()
     pH=models.FloatField(max_length=5)
     Rainfall=models.FloatField(max_length=5)
     Temperature=models.FloatField(max_length=5)
@@ -17,9 +17,9 @@ class CropModel1(models.Model):
     
 
 class CropModel2(models.Model):
-    N=models.IntegerField(max_length=5)
-    P=models.IntegerField(max_length=5)
-    K=models.IntegerField(max_length=5)
+    N=models.IntegerField()
+    P=models.IntegerField()
+    K=models.IntegerField()
     pH=models.FloatField(max_length=5)
     EC=models.FloatField(max_length=5)
     OC=models.FloatField(max_length=5)

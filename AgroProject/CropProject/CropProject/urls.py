@@ -17,9 +17,16 @@ Including another URLconf
 from django.contrib import admin 
 from django.urls import path, include 
 from django.urls import re_path
+from rest_framework.routers import DefaultRouter
 from CropApp.views import *
+
+router = DefaultRouter()
+router.register(r'crops', CropModel1ViewSet)
+router.register(r'crops', CropModel2ViewSet)
   
 urlpatterns = [ 
     path('admin/', admin.site.urls), 
-    path('wel/', ReactView.as_view(), name="something"), 
+    path('CropModel1/', CropModel1ViewSet.as_view({'get': 'list', 'post': 'create'}), name="CropModel1"),
+    path('CropModel2/', CropModel2ViewSet.as_view({'get': 'list', 'post': 'create'}), name="CropModel2"),
+    path('', include(router.urls)),
 ]
