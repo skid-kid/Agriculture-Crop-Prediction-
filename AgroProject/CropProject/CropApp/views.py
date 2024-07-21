@@ -1,58 +1,47 @@
-from django.shortcuts import render 
-from rest_framework.views import APIView 
-from . models import *
-from rest_framework.response import Response 
-from . serializer import *
-from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from rest_framework import status
-# Create your views here. 
-  
-class ReactView(APIView): 
-    
-    serializer_class = ReactSerializer 
-  
-    def get(self, request): 
-        detail = [ {"name": detail.name,"detail": detail.detail}  
-        for detail in React.objects.all()] 
-        return Response(detail) 
-  
-    def post(self, request): 
-  
-        serializer = ReactSerializer(data=request.data) 
-        if serializer.is_valid(raise_exception=True): 
-            serializer.save() 
-            return  Response(serializer.data) 
+from . models import React, CropModel1, CropModel2
+from . serializer import ReactSerializer, CropModel1Serializer, CropModel2Serializer
 
-class CropModel1ViewSet(viewsets.ModelViewSet):
-    queryset = CropModel1.objects.all()
-    serializer_class = CropModel1Serializer
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        else:
-            print('Validation errors:', serializer.errors)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class CropModel2ViewSet(viewsets.ModelViewSet):
-    queryset = CropModel2.objects.all()
-    serializer_class = CropModel2Serializer
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+@api_view(['GET', 'POST'])
+def react_view(request):
+    if request.method == 'GET':
+        details = [{"name": detail.name, "detail": detail.detail} for detail in React.objects.all()]
+        return Response(details)
+    elif request.method == 'POST':
+        serializer = ReactSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST'])
+def CropModel1View(request):
+    if request.method == 'GET':
+        queryset = CropModel1.objects.all()
+        serializer = CropModel1Serializer(queryset, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = CropModel1Serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST'])
+def CropModel2View(request):
+    if request.method == 'GET':
+        queryset = CropModel2.objects.all()
+        serializer = CropModel2Serializer(queryset, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = CropModel2Serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 """class CropModel2ViewSet(viewsets.ModelViewSet):
     queryset = CropModel2.objects.all()
