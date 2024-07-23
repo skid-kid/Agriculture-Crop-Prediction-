@@ -1,7 +1,7 @@
 
 import axios from "axios";
 import { useState } from "react";
-
+import zod from "zod";
 export function Form() {
     const [formData, setFormData] = useState({
       N: zod.number(),
