@@ -2,23 +2,19 @@
 import axios from "axios"
 import zod from 'zod';
 import { useState } from "react";
-export function Form() {
+export function Form1() {
     const [formData, setFormData] = useState({
+      Crop_Type: zod.string(),
+      Crop_Name: zod.string(),
       N: zod.number(),
       P: zod.number(),
       K: zod.number(),
       pH: zod.number(),
-      EC: zod.number(),
-      OC: zod.number(),
-      S: zod.number(),
-      Zn: zod.number(),
-      Fe: zod.number(),
-      Cu: zod.number(),
-      Mn: zod.number(),
-      B: zod.number(),
+      RainFall: zod.number(),
+      Temperature: zod.number(),
+      Area_in_hectares: zod.number(),
     });
   
-    
     const handleChange = (e) => {
       const { name, value } = e.target;
       setFormData(prevState => ({
@@ -27,7 +23,6 @@ export function Form() {
       }));
     };
   
-    // Handle form submission
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
@@ -61,11 +56,11 @@ export function Form() {
             padding: 15,
             borderRadius: "5px",
             margin: 15,
-            backgroundColor: "black",
+            backgroundColor:"black",
             color: "white"
           }}
         >
-          Submit!
+          GET CROP YIELD!
         </button>
       </form>
     );
