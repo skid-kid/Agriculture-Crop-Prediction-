@@ -17,9 +17,9 @@ class CropModel1(models.Model):
     
 
 class CropModel2(models.Model):
-    N=models.IntegerField()
-    P=models.IntegerField()
-    K=models.IntegerField()
+    N=models.FloatField()
+    P=models.FloatField()
+    K=models.FloatField()
     pH=models.FloatField(max_length=5)
     EC=models.FloatField(max_length=5)
     OC=models.FloatField(max_length=5)
