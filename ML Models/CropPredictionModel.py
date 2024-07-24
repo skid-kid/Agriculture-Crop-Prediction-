@@ -7,17 +7,17 @@ df = pd.read_csv('Crop_production.csv')
 df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 df1 = df.dropna()
 
-print(df1.head(10))
-print(df1.dtypes)
-print(df1.shape)
+#print(df1.head(10))
+#print(df1.dtypes)
+#print(df1.shape)
 
 #Data Cleaning
 X = df1.drop(['Area_in_hectares', 'Production_in_tons', 'Yield_ton_per_hec'], axis=1)
 y = df1['Production_in_tons'] 
 
-print(df1['State_Name'].unique())
-print(df1['Crop_Type'].unique())
-print(df1['Crop'].unique())
+#print(df1['State_Name'].unique())
+#print(df1['Crop_Type'].unique())
+#print(df1['Crop'].unique())
 
 categorical_features = ['State_Name', 'Crop_Type', 'Crop']
 numerical_features = ['N', 'P', 'K', 'pH', 'rainfall', 'temperature']
@@ -42,15 +42,18 @@ pipeline = Pipeline(steps=[
 ])
 
 pipeline.fit(X_train, y_train)
-y_pred = pipeline.predict(X_test)
-
+import joblib
+filename="model1.sav"
+joblib.dump(pipeline, filename)
+#y_pred = pipeline.predict(X_test)
+"""
 #Model evaluation using metrics
 from sklearn.metrics import mean_squared_error, r2_score
 mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 print(f"Mean Squared Error: {mse}")
 print(f"R^2 Score: {r2}")
-
+"""
 #Used to find ideal parameters for model tuning
 """
 from sklearn.model_selection import RandomizedSearchCV

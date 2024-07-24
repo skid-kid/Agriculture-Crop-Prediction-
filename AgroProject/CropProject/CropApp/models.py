@@ -6,26 +6,23 @@ class React(models.Model):
 
 class CropModel1(models.Model):
     Crop_type=models.CharField(max_length=30)
-    Crop_name=models.CharField(max_length=30)
+    Crop=models.CharField(max_length=30)
     N=models.IntegerField()
     P=models.IntegerField()
     K=models.IntegerField()
     pH=models.FloatField(max_length=5)
-    Rainfall=models.FloatField(max_length=5)
-    Temperature=models.FloatField(max_length=5)
+    rainfall=models.FloatField(max_length=5)
+    temperature=models.FloatField(max_length=5)
     Area_in_hectares=models.FloatField(max_length=10)
+    State_name=models.CharField(max_length=30)
     
 
 class CropModel2(models.Model):
-    N=models.FloatField()
-    P=models.FloatField()
-    K=models.FloatField()
-    pH=models.FloatField(max_length=5)
-    EC=models.FloatField(max_length=5)
-    OC=models.FloatField(max_length=5)
-    S=models.FloatField(max_length=5)
-    Zn=models.FloatField(max_length=5)
-    Fe=models.FloatField(max_length=5)
-    Cu=models.FloatField(max_length=5)
-    Mn=models.FloatField(max_length=5)
-    B=models.FloatField(max_length=5)
+    Nitrogen=models.IntegerField()
+    Phosphorus=models.IntegerField()
+    Potassium=models.IntegerField()
+    Temperature=models.FloatField(max_length=5)
+    Humidity=models.FloatField(max_length=5)
+    pH_Value=models.FloatField(max_length=5)
+    Rainfall=models.FloatField(max_length=5)
+    

@@ -32,7 +32,7 @@ export function Form() {
       e.preventDefault();
       try {
         
-        await axios.post('http://localhost:4001/form', formData); 
+        await axios.post('http://localhost:8000/crops2/', formData); 
         alert('Data submitted successfully');
       } catch (error) {
         console.error('Error submitting data:', error.response ?.data || error.message);
