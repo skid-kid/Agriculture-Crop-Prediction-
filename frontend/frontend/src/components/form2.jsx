@@ -12,7 +12,7 @@ export function Form1() {
         pH: '',
         rainfall: '',
         temperature: '',
-        Area_in_hectares: ''
+        Area_in_hectares: '',
     });
     const [prediction, setPrediction] = useState(null);
 
@@ -66,9 +66,21 @@ export function Form1() {
             {prediction !== null && (
                 <div style={{ marginTop: '20px', fontSize:'50px' }}>
                     <h3>Expected Yield of Crop in Tons: {prediction}</h3>
+                <div style={{ 
+                    marginTop: '20px', 
+                    padding: '20px', 
+                    border: '1px solid black', 
+                    borderRadius: '5px', 
+                    backgroundColor: 'green', 
+                    color: 'white', 
+                    textAlign: 'center' 
+                  }}
+                >
+                    <h3>Expected Crop yield: {prediction}</h3>
+                </div>
                 </div>
             )}
-        </form>
-    );
+            </form>
+    )
 }
 
