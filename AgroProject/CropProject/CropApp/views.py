@@ -52,20 +52,54 @@ def CropModel1View(request):
         
         return Response({'prediction': prediction[0]}, status=status.HTTP_201_CREATED)
 
+from tensorflow.keras.models import load_model
+from sklearn.preprocessing import LabelEncoder
 
-    
+# Load the model and LabelEncoder at startup
+model = load_model('model.h5')
+
+# Load the LabelEncoder
+le = LabelEncoder()
+df = pd.read_csv('C:\\Users\\hp\\Agriculture-Crop-Prediction-\\ML Models\\Crop_Recommendation.csv')
+le.fit(df['Crop'])
+
 @api_view(['GET', 'POST'])
 def CropModel2View(request):
     if request.method == 'GET':
         queryset = CropModel2.objects.all()
         serializer = CropModel2Serializer(queryset, many=True)
         return Response(serializer.data)
+    
     elif request.method == 'POST':
         serializer = CropModel2Serializer(data=request.data)
         if serializer.is_valid():
+            # Save the validated data
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+            # Extract features for prediction
+            input_data = np.array([[
+                serializer.validated_data['Nitrogen'],
+                serializer.validated_data['Phosphorus'],
+                serializer.validated_data['Potassium'],
+                serializer.validated_data['Temperature'],
+                serializer.validated_data['Humidity'],
+                serializer.validated_data['pH_Value'],
+                serializer.validated_data['Rainfall']
+            ]])
+
+            # Make prediction
+            prediction = model.predict(input_data)
+            predicted_class = np.argmax(prediction, axis=1)
+            crop = le.inverse_transform(predicted_class)[0]
+
+            # Add prediction to the response
+            response_data = serializer.data
+            response_data['predicted_crop'] = crop
+            
+            return Response(response_data, status=status.HTTP_201_CREATED)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 """class CropModel2ViewSet(viewsets.ModelViewSet):

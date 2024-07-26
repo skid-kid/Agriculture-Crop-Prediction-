@@ -12,7 +12,7 @@ df1 = df.dropna()
 #print(df1.shape)
 
 #Data Cleaning
-X = df1.drop(['Area_in_hectares', 'Production_in_tons', 'Yield_ton_per_hec'], axis=1)
+X = df1.drop(['Production_in_tons', 'Yield_ton_per_hec'], axis=1)
 y = df1['Production_in_tons'] 
 
 #print(df1['State_Name'].unique())
@@ -20,7 +20,7 @@ y = df1['Production_in_tons']
 #print(df1['Crop'].unique())
 
 categorical_features = ['State_Name', 'Crop_Type', 'Crop']
-numerical_features = ['N', 'P', 'K', 'pH', 'rainfall', 'temperature']
+numerical_features = ['N', 'P', 'K', 'pH', 'rainfall', 'temperature','Area_in_hectares']
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder

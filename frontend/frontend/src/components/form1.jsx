@@ -1,53 +1,77 @@
 
 import axios from "axios";
 import { useState } from "react";
-import zod from "zod";
+import * as z from "zod";
+
+const formDataSchema = z.object({
+  Nitrogen: z.number().nonnegative(),
+  Phosphorus: z.number().nonnegative(),
+  Potassium: z.number().nonnegative(),
+  Temperature: z.number().nonnegative(),
+  Humidity: z.number().nonnegative(),
+  pH_Value: z.number().min(0).max(14),
+  Rainfall: z.number().nonnegative(),
+});
+
 export function Form() {
-    const [formData, setFormData] = useState({
-      Nitrogen: zod.number(),
-      Phosphorus: zod.number(),
-      Potassium: zod.number(),
-      Pottasium: zod.number(),
-      Temperature: zod.number(),
-      Humidity: zod.number(),
-      pH_Value: zod.number(),
-      Rainfall: zod.number(),
-    });
-  
-    
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData(prevState => ({
-        ...prevState,
-        [name]: value === '' ? ' ': Number(value),
-      }));
-    };
-  
-    // Handle form submission
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        
-        await axios.post('http://localhost:8000/crops2/', formData); 
-        alert('Data submitted successfully');
-      } catch (error) {
-        console.error('Error submitting data:', error.response ?.data || error.message);
+  const [formData, setFormData] = useState({
+    Nitrogen: '',
+    Phosphorus: '',
+    Potassium: '',
+    Temperature: '',
+    Humidity: '',
+    pH_Value: '',
+    Rainfall: ''
+  });
+
+  const [prediction, setPrediction] = useState(null); 
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value === '' ? '' : Number(value),
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      formDataSchema.parse(formData);
+      setErrors({}); 
+      const response = await axios.post('http://localhost:8000/crops2/', formData); 
+      setPrediction(response.data.predicted_crop);
+      alert('Data submitted successfully');
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors = {};
+        error.errors.forEach(err => {
+          newErrors[err.path[0]] = err.message;
+        });
+        setErrors(newErrors);
+      } else {
+        console.error('Error submitting data:', error.response?.data || error.message);
         alert('Error submitting data');
       }
-    };
-  
-    return (
+    }
+  };
+
+  return (
+    <div className="form-container">
       <form onSubmit={handleSubmit} className="flex-row justify-center text-center">
         {Object.keys(formData).map(key => (
-          <div  className='bg-black'key={key} style={{ marginBottom: '7px' }}>
+          <div className='input-container' key={key} style={{ marginBottom: '7px' }}>
             <input
-              style={{ padding:0, margin:2,borderRadius:3, }}
+              style={{ padding: 0, margin: 2, borderRadius: 3 }}
               type="number"
               name={key}
               placeholder={key}
               value={formData[key]}
               onChange={handleChange}
             />
+            {errors[key] && <p style={{ color: 'red' }}>{errors[key]}</p>}
             <br />
           </div>
         ))}
@@ -63,6 +87,20 @@ export function Form() {
         >
           Submit!
         </button>
-      </form>
-    );
-  }
+      </form>
+      {prediction && (
+        <div style={{ 
+          marginTop: '20px', 
+          padding: '20px', 
+          border: '1px solid black', 
+          borderRadius: '5px', 
+          backgroundColor: 'green', 
+          color: 'white', 
+          textAlign: 'center' 
+        }}>
+          <h3>Predicted Crop: {prediction}</h3>
+        </div>
+      )}
+    </div>
+  );
+}
