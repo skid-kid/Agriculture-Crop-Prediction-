@@ -22,7 +22,7 @@ function App() {
 </div>
    <div>
    <h2 className="font-sans justify-between text-center m-10 p-15  text-pretty font-bold text-purple-400 drop-shadow-xl" style={{fontSize:"50px"}}>CHECK YOUR <a className='text-black'>{Soil}</a> </h2>
-   <h4 className='font-sans justfiy-between text-center '>*Provide float values only*</h4>
+   <h4 className='font-sans justfiy-between text-center '></h4>
    <div className=" flex justify-center">
     <Form></Form>
    </div>

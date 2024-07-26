@@ -43,7 +43,7 @@ export function Form1() {
                 <div className='bg-black' key={key} style={{ marginBottom: '7px' }}>
                     <input
                         style={{ padding: 10, margin: 2, borderRadius: 3 }}
-                        type={key === 'Crop_Type' || key === 'Crop'|| key==='State_Name'? "text" : "number"}
+                        type={key === 'Crop_Type' || key === 'Crop' || key ==='State_Name' ? "text" : "number"}
                         name={key}
                         placeholder={key}
                         value={formData[key]}

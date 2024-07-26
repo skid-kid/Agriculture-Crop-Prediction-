@@ -7,6 +7,7 @@ export function Form() {
       Nitrogen: zod.number(),
       Phosphorus: zod.number(),
       Potassium: zod.number(),
+      Pottasium: zod.number(),
       Temperature: zod.number(),
       Humidity: zod.number(),
       pH_Value: zod.number(),
