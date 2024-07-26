@@ -43,7 +43,6 @@ export function Form() {
       setErrors({}); 
       const response = await axios.post('http://localhost:8000/crops2/', formData); 
       setPrediction(response.data.predicted_crop);
-      alert('Data submitted successfully');
     } catch (error) {
       if (error instanceof z.ZodError) {
         const newErrors = {};
@@ -64,7 +63,7 @@ export function Form() {
         {Object.keys(formData).map(key => (
           <div className='input-container' key={key} style={{ marginBottom: '7px' }}>
             <input
-              style={{ padding: 0, margin: 2, borderRadius: 3 }}
+              style={{ padding:10, margin:2,borderRadius:3, }}
               type="number"
               name={key}
               placeholder={key}

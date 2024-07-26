@@ -26,11 +26,9 @@ export function Form1() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form Data:", formData);
         try {
             const response = await axios.post('http://localhost:8000/crops1/', formData); 
             setPrediction(response.data.prediction);
-            alert('Data submitted successfully');
         } catch (error) {
             console.error('Error submitting data:', error.response ?.data || error.message);
             alert('Error submitting data');
@@ -40,7 +38,7 @@ export function Form1() {
     return (
         <form onSubmit={handleSubmit} className="flex-row justify-center text-center">
             {Object.keys(formData).map(key => (
-                <div className='bg-black' key={key} style={{ marginBottom: '7px' }}>
+                <div  className="bg-black" key={key} style={{ marginBottom: '7px' }}>
                     <input
                         style={{ padding: 10, margin: 2, borderRadius: 3 }}
                         type={key === 'Crop_Type' || key === 'Crop' || key ==='State_Name' ? "text" : "number"}
@@ -65,6 +63,8 @@ export function Form1() {
                 GET CROP YIELD!
             </button>
             {prediction !== null && (
+                <div style={{ marginTop: '20px', fontSize:'50px' }}>
+                    <h3>Expected Yield of Crop in Tons: {prediction}</h3>
                 <div style={{ 
                     marginTop: '20px', 
                     padding: '20px', 
@@ -77,8 +77,9 @@ export function Form1() {
                 >
                     <h3>Expected Crop yield: {prediction}</h3>
                 </div>
+                </div>
             )}
-        </form>
-    );
+            </form>
+    )
 }
 
