@@ -4,18 +4,13 @@ import { useState } from "react";
 import zod from "zod";
 export function Form() {
     const [formData, setFormData] = useState({
-      N: zod.number(),
-      P: zod.number(),
-      K: zod.number(),
-      pH: zod.number(),
-      EC: zod.number(),
-      OC: zod.number(),
-      S: zod.number(),
-      Zn: zod.number(),
-      Fe: zod.number(),
-      Cu: zod.number(),
-      Mn: zod.number(),
-      B: zod.number(),
+      Nitrogen: zod.number(),
+      Phosphorus: zod.number(),
+      Pottasium: zod.number(),
+      Temperature: zod.number(),
+      Humidity: zod.number(),
+      pH_Value: zod.number(),
+      Rainfall: zod.number(),
     });
   
     
