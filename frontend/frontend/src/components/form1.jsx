@@ -63,7 +63,6 @@ export function Form() {
         {Object.keys(formData).map(key => (
           <div className='input-container' key={key} style={{ marginBottom: '7px' }}>
             <input
-              style={{ padding:10, margin:2,borderRadius:3, }}
               type="number"
               name={key}
               placeholder={key}
