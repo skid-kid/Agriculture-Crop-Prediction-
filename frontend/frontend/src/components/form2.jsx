@@ -3,14 +3,15 @@ import { useState } from "react";
 
 export function Form1() {
     const [formData, setFormData] = useState({
+        State_Name:'',
         Crop_Type: '',
-        Crop_Name: '',
+        Crop: '',
         N: '',
         P: '',
         K: '',
         pH: '',
-        RainFall: '',
-        Temperature: '',
+        rainfall: '',
+        temperature: '',
         Area_in_hectares: ''
     });
     const [prediction, setPrediction] = useState(null);
@@ -42,7 +43,7 @@ export function Form1() {
                 <div className='bg-black' key={key} style={{ marginBottom: '7px' }}>
                     <input
                         style={{ padding: 10, margin: 2, borderRadius: 3 }}
-                        type={key === 'Crop_Type' || key === 'Crop_Name' ? "text" : "number"}
+                        type={key === 'Crop_Type' || key === 'Crop'|| key==='State_Name'? "text" : "number"}
                         name={key}
                         placeholder={key}
                         value={formData[key]}
@@ -64,8 +65,8 @@ export function Form1() {
                 GET CROP YIELD!
             </button>
             {prediction !== null && (
-                <div style={{ marginTop: '20px' }}>
-                    <h3>Prediction Result: {prediction}</h3>
+                <div style={{ marginTop: '20px', fontSize:'40px' }}>
+                    <h3>Expected Crop yield: {prediction}</h3>
                 </div>
             )}
         </form>

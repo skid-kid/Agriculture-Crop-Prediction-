@@ -4,8 +4,8 @@ from rest_framework import status
 import joblib
 import numpy as np
 import pandas as pd
-from . models import CropModel1
-from . serializer import CropModel1Serializer
+from . models import CropModel1,CropModel2
+from . serializer import CropModel1Serializer,CropModel2Serializer
 
 @api_view(['GET', 'POST'])
 def CropModel1View(request):
@@ -15,7 +15,7 @@ def CropModel1View(request):
         return Response(serializer.data)
     
     elif request.method == 'POST':
-        required_fields = ['Crop_Type', 'Crop_Name', 'N', 'P', 'K', 'pH', 'RainFall', 'Temperature', 'Area_in_hectares']
+        required_fields = ['State_Name','Crop_Type', 'Crop', 'N', 'P', 'K', 'pH', 'rainfall', 'temperature', 'Area_in_hectares']
         missing_fields = [field for field in required_fields if field not in request.data]
         
         if missing_fields:
@@ -23,16 +23,16 @@ def CropModel1View(request):
         
         try:
             data = {
+                'State_Name': request.data['State_Name'],
                 'Crop_Type': request.data['Crop_Type'],
-                'Crop': request.data['Crop_Name'],
+                'Crop': request.data['Crop'],
                 'N': float(request.data['N']),
                 'P': float(request.data['P']),
                 'K': float(request.data['K']),
                 'pH': float(request.data['pH']),
-                'rainFall': float(request.data['RainFall']),
-                'temperature': float(request.data['Temperature']),
+                'rainfall': float(request.data['rainfall']),
+                'temperature': float(request.data['temperature']),
                 'Area_in_hectares': float(request.data['Area_in_hectares']),
-                'State_Name': request.data['State_Name']
             }
         except ValueError:
             return Response({'error': 'All numeric fields must be valid numbers.'}, status=status.HTTP_400_BAD_REQUEST)
@@ -41,9 +41,9 @@ def CropModel1View(request):
         try:
             # Creating a DataFrame with the correct feature names
             features_df = pd.DataFrame([[
-                data[State_Name],data['Crop_Type'], data['Crop'], data['N'], data['P'], data['K'], 
-                data['pH'], data['rainFall'], data['temperature'], data['Area_in_hectares']
-            ]], columns=['State_Name','Crop_Type', 'Crop', 'N', 'P', 'K', 'pH', 'rainFall', 'temperature', 'Area_in_hectares'])
+                data['State_Name'],data['Crop_Type'], data['Crop'], data['N'], data['P'], data['K'], 
+                data['pH'], data['rainfall'], data['temperature'], data['Area_in_hectares']
+            ]], columns=['State_Name','Crop_Type', 'Crop', 'N', 'P', 'K', 'pH', 'rainfall', 'temperature', 'Area_in_hectares'])
             
             pipeline = joblib.load("model1.sav")
             prediction = pipeline.predict(features_df)

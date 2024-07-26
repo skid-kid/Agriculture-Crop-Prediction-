@@ -16,7 +16,7 @@ X = df1.drop(['Area_in_hectares', 'Production_in_tons', 'Yield_ton_per_hec'], ax
 y = df1['Production_in_tons'] 
 
 #print(df1['State_Name'].unique())
-#print(df1['Crop_Type'].unique())
+#print(df1['Crop_type'].unique())
 #print(df1['Crop'].unique())
 
 categorical_features = ['State_Name', 'Crop_Type', 'Crop']
