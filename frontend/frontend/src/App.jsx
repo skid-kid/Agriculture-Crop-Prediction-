@@ -4,7 +4,7 @@ import { Form } from './components/form1'
 import { Form1 } from './components/form2'
 const text="{AI}"
 const text2="{Agriculture-Department!}"
-const Soil="{SOIL-FERTILITY}!"
+const Soil="CROP RECOMMANDATION!"
 const Crop="{CROP-YIELD }!"
 
 function App() {  
@@ -21,7 +21,7 @@ function App() {
   </h2>
 </div>
    <div>
-   <h2 className="font-sans justify-between text-center m-10 p-15  text-pretty font-bold text-purple-400 drop-shadow-xl" style={{fontSize:"50px"}}>CHECK YOUR <a className='text-black'>{Soil}</a> </h2>
+   <h2 className="font-sans justify-between text-center m-10 p-15  text-pretty font-bold text-purple-400 drop-shadow-xl animate-bounce" style={{fontSize:"50px"}}>GET INSTANT <a className='text-black'>{Soil}</a> </h2>
    <h4 className='font-sans justfiy-between text-center '></h4>
    <div className=" flex justify-center">
     <Form></Form>
@@ -29,7 +29,7 @@ function App() {
    
    </div>
    <div className='bg-farmer bg-cover'>  
-   <h2 className="font-sans justify-between text-center m-10 p-15  text-pretty font-bold text-purple-600 drop-shadow-xl" style={{fontSize:"50px"}}>CHECK YOUR <a className='text-black'>{Crop}</a> </h2>
+   <h2 className="font-sans justify-between text-center m-10 p-15  text-pretty font-bold text-purple-600 drop-shadow-xl animate-bounce" style={{fontSize:"50px"}}>CHECK YOUR <a className='text-black'>{Crop}</a> </h2>
    <div className=" flex justify-center">
     <Form1></Form1>
    </div>
