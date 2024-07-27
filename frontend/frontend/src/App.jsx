@@ -16,8 +16,8 @@ function App() {
   <div className='bg-black z-10'>
   <h1 className="text-purple-400 font-mono subpixel-antialiased  font-bold justify-center text-center brightness-200 drop-shadow-xl " style={{ fontSize: "35px" }}>DiGiFarm!</h1>
   </div>
-  <h2 className="font-mono justify-center text-center   font-medium" style={{fontSize:"60px"}}>
-    A generative platform to provide <a className="text-purple-500 shadow-2xl">{text}</a> assistants to <a className="shadow-2xl text-red-400">{text2} </a>
+  <h2 className="font-mono justify-center text-center font-medium brightness-200 " style={{fontSize:"60px"}}>
+    A generative platform to provide <a className="text-purple-500 shadow-2xl">{text}</a> assistants to <a className="shadow-2xl text-red-800 ">{text2} </a>
   </h2>
 </div>
    <div>
