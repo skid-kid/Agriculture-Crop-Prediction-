@@ -43,7 +43,6 @@ export function Form1() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form Data:", formData);  
         try {
             const response = await axios.post('http://localhost:8000/crops1/', formData); 
             setPrediction(response.data.prediction);
